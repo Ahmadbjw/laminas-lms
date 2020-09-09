@@ -1,0 +1,26 @@
+<?php
+$title = "Courses";
+$this->headTitle($title);
+// $courses = $this->courses;
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+	<a href="<?= $this->url('course',['action' => 'add']) ?>">Add new Courses</a>
+</p>
+<table class="table">
+	<tr>
+		<th>id</th>
+		<th>Courses</th>
+		<th>Actions</th>
+	</tr>
+	 <?php foreach ($courses as $row) : ?>
+		<tr>
+			<td><?= $this->escapeHtml($row->id) ?></td>
+			<td><?= $this->escapeHtml($row->course) ?></td>
+			<td>
+				<a class="btn btn-primary"href="<?= $this->url('course',['action'=>'Edit','id'=> $row->id]) ?>">Edit</a>
+				<a class="btn btn-danger"  href="<?= $this->url('course',['action'=>'Delete','id'=> $row->id]) ?>">Delete</a>
+			</td>
+		</tr>
+	<?php endforeach ?>
+</table>

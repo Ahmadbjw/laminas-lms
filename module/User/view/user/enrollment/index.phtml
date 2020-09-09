@@ -1,0 +1,28 @@
+<?php
+$title = "Users";
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+<a href="<?= $this->url('enrollment', ['action' => 'add']) ?>">Create New Enrollment</a>  
+</p>
+<table class="table">
+  <tr>
+    <th>#</th>
+    <th>User</th>
+    <th>Course</th>
+    <th>Enrollment Date</th>
+    <th>Actions</th>
+  </tr>
+   <?php foreach ($enrollments as $enrollment) : ?>
+    <tr>
+      <td><?= $this->escapeHtml($enrollment->id) ?></td>
+      <td><?= $this->escapeHtml($enrollment->learner_name) ?></td>
+      <td><?= $this->escapeHtml($enrollment->course_name) ?></td>
+      <td><?= $this->escapeHtml($enrollment->created_at) ?></td>
+      <td>
+        <a class="btn btn-danger"  href="<?= $this->url('enrollment',['action'=>'Delete','id'=> $enrollment->id]) ?>">Unenroll</a>
+      </td>
+    </tr>
+  <?php endforeach ?>
+</table>

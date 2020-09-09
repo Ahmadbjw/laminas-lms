@@ -1,0 +1,31 @@
+<?php
+
+$title = "Add New Course";
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title)  ?></h1>
+
+<?php
+$course = $form->get('course');
+$course->setAttribute('class','form-control');
+$course->setAttribute('placeholder','Course Title');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('course', ['action' => 'add']));
+$form->prepare();
+
+echo $this->form()->openTag($form); 
+?>
+
+<div class="form-group">
+	<?= $this->formLabel($course)  ?>
+	<?= $this->formElement($course)  ?>
+	<?= $this->formElementErrors()->render($course,['class' => 'help-block'])  ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();

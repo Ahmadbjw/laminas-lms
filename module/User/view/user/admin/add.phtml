@@ -1,0 +1,98 @@
+<?php
+
+$title = "Add New Users";
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title)  ?></h1>
+
+<?php
+$first_name = $form->get('first_name');
+$first_name->setAttribute('class','form-control');
+$first_name->setAttribute('placeholder','Enter Your First Name');
+
+$last_name = $form->get('last_name');
+$last_name->setAttribute('class','form-control');
+$last_name->setAttribute('placeholder','Enter YourLast Name');
+
+$username = $form->get('username');
+$username->setAttribute('class','form-control');
+$username->setAttribute('placeholder','Enter Your Username');
+
+$email = $form->get('email');
+$email->setAttribute('class','form-control');
+$email->setAttribute('placeholder','Enter Your email');
+
+$confirm_email = $form->get('confirm_email');
+$confirm_email->setAttribute('class','form-control');
+$confirm_email->setAttribute('placeholder','Enter Your confirm email');
+
+$password = $form->get('password');
+$password->setAttribute('class','form-control');
+$password->setAttribute('placeholder','Enter Your password');
+
+$confirm_password = $form->get('confirm_password');
+$confirm_password->setAttribute('class','form-control');
+$confirm_password->setAttribute('placeholder','Enter Your confirm Password');
+
+$gender = $form->get('gender');
+$gender->setAttribute('class','form-control');
+$gender->setAttribute('placeholder','First Name');
+
+$submit = $form->get('create_account');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('admin', ['action' => 'add']));
+$form->prepare();
+
+echo $this->form()->openTag($form); 
+?>
+
+<div class="form-group">
+	<?= $this->formLabel($first_name)  ?>
+	<?= $this->formElement($first_name)  ?>
+	<?= $this->formElementErrors()->render($first_name,['class' => 'help-block'])  ?>
+</div>
+
+<div class="form-group">
+	<?= $this->formLabel($last_name)  ?>
+	<?= $this->formElement($last_name)  ?>
+	<?= $this->formElementErrors()->render($last_name,['class' => 'help-block'])  ?>
+</div>
+<div class="form-group">
+	<?= $this->formLabel($username)  ?>
+	<?= $this->formElement($username)  ?>
+	<?= $this->formElementErrors()->render($username,['class' => 'help-block'])  ?>
+</div>
+<div class="form-group">
+	<?= $this->formLabel($email)  ?>
+	<?= $this->formElement($email)  ?>
+	<?= $this->formElementErrors()->render($email,['class' => 'help-block'])  ?>
+</div>
+
+<div class="form-group">
+	<?= $this->formLabel($confirm_email)  ?>
+	<?= $this->formElement($confirm_email)  ?>
+	<?= $this->formElementErrors()->render($confirm_email,['class' => 'help-block'])  ?>
+</div>
+
+<div class="form-group">
+	<?= $this->formLabel($password)  ?>
+	<?= $this->formElement($password)  ?>
+	<?= $this->formElementErrors()->render($password,['class' => 'help-block'])  ?>
+
+	<div class="form-group">
+	<?= $this->formLabel($confirm_password)  ?>
+	<?= $this->formElement($confirm_password)  ?>
+	<?= $this->formElementErrors()->render($confirm_password,['class' => 'help-block'])  ?>
+</div>
+</div>
+<div class="form-group">
+	<?= $this->formLabel($gender)  ?>
+	<?= $this->formElement($gender)  ?>
+	<?= $this->formElementErrors()->render($gender,['class' => 'help-block'])  ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+// echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();
