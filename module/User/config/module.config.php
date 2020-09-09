@@ -43,20 +43,7 @@ return [
 					],
 				],
 			],
-			'profile' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => '/profile[/:id[/:username]]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\ProfileController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
+			
 	// Courses Route
 			'course' => [
                 'type'    => Segment::class,

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 namespace User\Controller;
+use Laminas\Authentication\AuthenticationService;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use User\Form\Courses\CourseForm;
@@ -12,12 +13,21 @@ class CourseController extends AbstractActionController
 	private $courseTable;
 	public function __construct(CourseTable $courseTable)
 	{
-	$this->courseTable = $courseTable;
+
+	    $this->courseTable = $courseTable;
 	}
+
+    public function checkAuth(){
+        $auth = new AuthenticationService();
+        if(!$auth->hasIdentity()){
+            return $this->redirect()->toRoute('login');
+        }
+    }
 
 
 	public function indexAction()
     {
+        $this->checkAuth();
         return new ViewModel([
             'courses' => $this->courseTable->getAllCourses(),
 	     ]);
@@ -25,6 +35,7 @@ class CourseController extends AbstractActionController
 
 	public function editAction()
 	{
+        $this->checkAuth();
 		$id = (int) $this->params()->fromRoute('id', 0);
         if (0 === $id) 
         {
@@ -69,6 +80,7 @@ class CourseController extends AbstractActionController
 
 	public function addAction()
     {
+        $this->checkAuth();
         $form = new CourseForm();
         $form->get('submit')->setValue('Add');
 
@@ -93,6 +105,7 @@ class CourseController extends AbstractActionController
 
 	public function deleteAction()
 	{
+        $this->checkAuth();
 		$id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('course');

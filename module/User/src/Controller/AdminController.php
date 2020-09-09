@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace User\Controller;
 
+use Laminas\Authentication\AuthenticationService;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use User\Form\Auth\CreateForm;
@@ -19,8 +20,18 @@ class AdminController extends AbstractActionController
     $this->adminTable = $adminTable;
   
     }
+
+    public function checkAuth(){
+        $auth = new AuthenticationService();
+        if(!$auth->hasIdentity()){
+            return $this->redirect()->toRoute('login');
+        }
+    }
+
     public function indexAction()
     {  
+        $this->checkAuth();
+        
         return new ViewModel([
         	'users' => $this->adminTable->getAllUsers(),
         ]);
@@ -28,6 +39,8 @@ class AdminController extends AbstractActionController
 
     public function addAction ()
     {
+        $this->checkAuth();
+        
         $createForm = new CreateForm();
 
         $createForm->get('create_account')->setValue('Add user');
@@ -53,6 +66,8 @@ class AdminController extends AbstractActionController
 
     public function editAction()
     {
+        $this->checkAuth();
+        
         $userId = (int) $this->params()->fromRoute('id', 0);
         
         if (0 === $userId) 
@@ -100,6 +115,8 @@ class AdminController extends AbstractActionController
 
     public function deleteAction()
     {
+        $this->checkAuth();
+        
         $userId = (int) $this->params()->fromRoute('id', 0);
         
         if (!$userId) 

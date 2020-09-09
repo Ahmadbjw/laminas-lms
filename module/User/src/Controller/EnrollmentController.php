@@ -2,6 +2,7 @@
 declare(strict_types =1);
 namespace User\Controller;
 
+use Laminas\Authentication\AuthenticationService;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use User\Form\Enrollment\EnrollmentForm;
@@ -25,8 +26,17 @@ class EnrollmentController extends AbstractActionController
     	$this->adminTable		= $adminTable;
     }
 
+    public function checkAuth(){
+        $auth = new AuthenticationService();
+        if(!$auth->hasIdentity()){
+            return $this->redirect()->toRoute('login');
+        }
+    }
+
     public function indexAction()
     {
+        $this->checkAuth();
+        
         return new ViewModel([
 			'enrollments' => $this->enrollmentTable->getEnrollments()
         ]);
@@ -34,6 +44,8 @@ class EnrollmentController extends AbstractActionController
 
     public function addAction()
     {
+        $this->checkAuth();
+        
     	$coursesArray  = [];
     	$learnersArray = [];
 
@@ -73,6 +85,8 @@ class EnrollmentController extends AbstractActionController
 
     public function editAction()
     {
+        $this->checkAuth();
+        
         $userId = (int) $this->params()->fromRoute('id', 0);
         
         if (0 === $userId) 
@@ -115,6 +129,8 @@ class EnrollmentController extends AbstractActionController
 
     public function deleteAction()
     {
+        $this->checkAuth();
+        
         $enrollmentId = (int) $this->params()->fromRoute('id', 0);
         if (!$enrollmentId) 
         {

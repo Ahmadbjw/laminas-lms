@@ -42,10 +42,27 @@
                         </li>
                      <?php #if($this->identity()) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url('signup') ?>">Signup <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="<?= $this->url('signup') ?>">Signup <span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= $this->url('login') ?>">Login <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="<?= $this->url('login') ?>">Login <span class="sr-only"></span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url('course') ?>">Courses <span class="sr-only"></span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url('admin') ?>">Learners <span class="sr-only"></span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url('enrollment') ?>">Enrollment <span class="sr-only"></span></a>
+
+                        
+
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="<?= $this->url('logout') ?>">Logout <span class="sr-only">(current)</span></a>
                         </li>
       <?php #} ?>
                     </ul>
