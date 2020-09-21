@@ -2,8 +2,9 @@
 declare(strict_types=1);
 namespace User\Controller\Factory;
 
-use Interop\Container\ContainerInterface;
+// use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 use User\Controller\AuthController;
 use User\Model\Table\UserTable;
 class AuthControllerFactory implements FactoryInterface

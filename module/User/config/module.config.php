@@ -7,6 +7,7 @@ use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use User\Service\Factory\AuthenticationServiceFactory;
 
 return [  
 	'router'=> [
@@ -102,7 +103,6 @@ return [
         'factories' => [
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
             Controller\LoginController::class => Controller\Factory\LoginControllerFactory::class,
-            // Controller\ProfileController::class => Controller\Factory\ProfileControllerFactory::class,
             Controller\EnrollmentController::class => Controller\Factory\EnrollmentControllerFactory::class,
             Controller\LogoutController::class => InvokableFactory::class,
             Controller\ProfileController::class => InvokableFactory::class,
@@ -111,11 +111,13 @@ return [
 
         ],
 
+
+
     ],
 	'view_manager'=> [
 		'template_map'=> [
-			'auth/create' => __DIR__ . '/../view/user/auth/create.phtml',
-			'auth/login' => __DIR__ . '/../view/user/auth/index.phtml',
+			// 'auth/create' => __DIR__ . '/../view/user/auth/create.phtml',
+			// 'auth/login' => __DIR__ . '/../view/user/auth/index.phtml',
 		 // 'profile/index' => __DIR__ . '/../view/user/profile/index.phtml',
 		// 'admin/index' => __DIR__ . '/../view/user/admin/index.phtml',
 		 // 'enrollment/index' => __DIR__ . '/../view/user/enrollment/index.phtml',

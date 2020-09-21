@@ -41,14 +41,7 @@ return [
     ],
 
 
-    // 'controllers' => [
-    //     'factories' => [
-    //         // Controller\AuthController::class => User\Controller\Factory\AuthControllerFactory::class,
-    //         // Controller\LoginController::class => Controller\Factory\LoginControllerFactory::class,
-    //         Controller\ProfileController::class => InvokableFactory\ProfileControllerFactory::class,
-    //     ],
-    // ],
-
+  
 
 
     'controllers' => [

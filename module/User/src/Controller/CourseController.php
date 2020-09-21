@@ -7,14 +7,17 @@ use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use User\Form\Courses\CourseForm;
 use User\Model\Course;
+use User\Model\Table\AdminTable;
 use User\Model\Table\CourseTable;
 class CourseController extends AbstractActionController
 {
 	private $courseTable;
-	public function __construct(CourseTable $courseTable)
+    private $adminTable;
+	public function __construct(CourseTable $courseTable, AdminTable $adminTable)
 	{
 
 	    $this->courseTable = $courseTable;
+        $this->adminTable = $adminTable;
 	}
 
     public function checkAuth(){
@@ -30,6 +33,7 @@ class CourseController extends AbstractActionController
         $this->checkAuth();
         return new ViewModel([
             'courses' => $this->courseTable->getAllCourses(),
+            'users'   => $this->adminTable->getAllUsers(), 
 	     ]);
     }
 

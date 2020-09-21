@@ -25,6 +25,8 @@ class EnrollmentTable extends AbstractTableGateway
     protected $enrollmentTableGateway   = "";
     protected $adminTable               = "";
     protected $courseTable              = "";
+    protected $userId;
+    // protected $active;
 
 	public function __construct(TableGatewayInterface $adminTableGateway, TableGatewayInterface $courseTableGateway, TableGatewayInterface $enrollmentTableGateway)
     {
@@ -37,9 +39,13 @@ class EnrollmentTable extends AbstractTableGateway
         $this->courseTable = new CourseTable($this->courseTableGateway);
 	}
 
-    public function getEnrollments()
+
+
+    public function getEnrollments($id)
     {
-        $records     = $this->enrollmentTableGateway->select();
+
+
+        $records     = $this->enrollmentTableGateway->select(['user_id'=> $id]);
         $enrollments = [];
 
         foreach($records as $record)

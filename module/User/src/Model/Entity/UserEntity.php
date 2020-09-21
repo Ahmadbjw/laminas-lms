@@ -18,12 +18,12 @@ protected $gender;
 protected $created_at;
 protected $updated_at;
 
-public function getUserId()
+public function getid()
 {
-	return $this->$id; 
+	return $this->id; 
 }
 
-public function setUserId($id)
+public function setid($id)
 {
 	$this->id = $id;
 }

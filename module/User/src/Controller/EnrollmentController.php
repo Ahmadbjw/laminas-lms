@@ -12,18 +12,21 @@ use User\Model\Enrollment;
 use User\Model\Table\AdminTable;
 use User\Model\Table\CourseTable;
 use User\Model\Table\EnrollmentTable;
+use User\Model\Table\UserTable;
 
 class EnrollmentController extends AbstractActionController
 {
 	protected $enrollmentTable;
 	protected $courseTable;
 	protected $adminTable;
+    protected $userTable;
 
-    public function __construct(EnrollmentTable $enrollmentTable, CourseTable $courseTable, AdminTable $adminTable)
+    public function __construct(EnrollmentTable $enrollmentTable, CourseTable $courseTable, AdminTable $adminTable,UserTable $userTable)
     {
     	$this->enrollmentTable  = $enrollmentTable;
     	$this->courseTable		= $courseTable;
     	$this->adminTable		= $adminTable;
+        $this->userTable       = $userTable;
     }
 
     public function checkAuth(){
@@ -36,9 +39,13 @@ class EnrollmentController extends AbstractActionController
     public function indexAction()
     {
         $this->checkAuth();
+        $userId = (int) $this->params()->fromRoute('id', 0);
+
+        // print_r($userId);
+        // exit();
         
         return new ViewModel([
-			'enrollments' => $this->enrollmentTable->getEnrollments()
+			'enrollments' => $this->enrollmentTable->getEnrollments($userId)
         ]);
     }
 

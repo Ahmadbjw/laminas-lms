@@ -12,16 +12,20 @@ use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\Session\SessionManager;
 use Laminas\View\Model\ViewModel;
 use User\Form\Auth\LoginForm;
+use User\Model\Entity\userEntity;
+use User\Model\Table\EnrollmentTable;
 use User\Model\Table\UserTable;
 
 class LoginController extends AbstractActionController
 {
 	private $adapter; #database adapter
 	private $usersTable; #table we store
-	public function __construct(Adapter $adapter,UserTable $usersTable)
+	private $enrollmentTable;
+	public function __construct(Adapter $adapter,UserTable $usersTable,EnrollmentTable $enrollmentTable)
 		{
-			$this->adapter = $adapter;
-			$this->usersTable = $usersTable;
+			$this->adapter 			= $adapter;
+			$this->usersTable 		= $usersTable;
+			$this->enrollmentTable 	= $enrollmentTable;
 		}
 	public function indexAction()
 	{
@@ -40,14 +44,25 @@ class LoginController extends AbstractActionController
 		$request = $this->getRequest();
 		if($request->isPost()){
 			$formData = $request->getPost()->toArray();
-			// $loginForm->setInputFilter($this->usersTable->getLoginFormFilter());
+			$loginForm->setInputFilter($this->usersTable->getLoginFormFilter());
 			$loginForm->setData($formData);			
 
 			 $info = $this->usersTable->fetchAccountByEmail($formData['email']);
+
+
 			if($loginForm->isValid()){
 				$authAdapter = new CallbackCheckAdapter($this->adapter);
 				// $hash 		 = password_hash($formData['password'], PASSWORD_DEFAULT);
 				$hash 		 = $info->getPassword();
+				$id = $info->getid();
+				$active = $info->getActive();
+				// $this->enrollmentTable->setUserId($info);
+				// $this->enrollmentTable->getEnrollments($id);
+				// $this->enrollmentTable->setActive($active);
+				// print_r($id);
+				// exit();
+				
+			
 				$password 	 = $formData['password'];
 				$passwordValidation = function ($hash, $password) {
 				    return password_verify($password, $hash);
@@ -85,12 +100,12 @@ class LoginController extends AbstractActionController
 					}
 					$storage = $auth->getStorage();
 					$storage->write($authAdapter->getResultRowObject('created_at','updated_at'));
-					$id = 	$info->getUserId();
+					$id = 	$info->getid();
 					$username = $info->getUsername();
  					return $this->redirect()->toRoute(
-						'course',
+						'enrollment',
 						[
-							'id' 		=> 	$info->getUserId(),
+							'id' 		=> 	$info->getid(),
 							'username' 	=> 	mb_strtolower($info->getUsername())
 						]
 					);
@@ -103,6 +118,7 @@ class LoginController extends AbstractActionController
 				}
 			} 
 			else {
+				$loginForm->getMessages();
 				echo 'form is not valid';
 				exit;
 			}

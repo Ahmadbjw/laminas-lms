@@ -26,7 +26,11 @@ class AdminTable extends AbstractTableGateway
 
     public function getAllUsers(){
     
-        return $this->tableGateway->select();
+        return $this->tableGateway->select(['active'=> 0]);
+        // $test = $this->tableGateway->select(['active'=> 0]);
+
+
+        
     }
 
 

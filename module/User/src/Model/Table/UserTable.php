@@ -26,14 +26,21 @@ class UserTable extends AbstractTableGateway {
 		$sqlQuery = $this->sql->select()->where(['email' => $email]);
 		$sqlstmt = $this->sql->prepareStatementForSqlObject($sqlQuery);
 		$handler = $sqlstmt->execute()->current();
+		// print_r($handler);
+		// exit();
 		if(!$handler)
 		{
 			return null;
 		}
 
+
+
 		$classMethod = new ClassMethodsHydrator();
-		$entity		= new UserEntity();
+
+		$entity		= new UserEntity(); 
 		$classMethod->hydrate($handler, $entity);
+		// print_r($entity);
+		// exit();
 		return $entity;
  	}
 
